@@ -229,7 +229,6 @@
     <script>
         async function loadData() {
   try {
-    // Cargar secciones y productos desde tu proxy en Glitch
     const [sectionsRes, productsRes] = await Promise.all([
       fetch('https://repeated-expensive-weaver.glitch.me/api/sections'),
       fetch('https://repeated-expensive-weaver.glitch.me/api/menu')
@@ -242,7 +241,6 @@
     const sectionsData = await sectionsRes.json();
     const productsData = await productsRes.json();
 
-    // Procesar datos como antes
     const sections = processSheetData(sectionsData.values);
     const products = processSheetData(productsData.values);
 

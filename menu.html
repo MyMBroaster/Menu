@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyM Broaster - Menú Digital</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #c52d2f;
+            --secondary: #d4a762;
+            --light: #f9f5f0;
+            --dark: #333;
+            --gray: #666;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        header {
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .logo {
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            color: var(--primary);
+            margin: 0;
+            font-size: 2.2rem;
+        }
+        
+        .subtitle {
+            color: var(--secondary);
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        .sections-nav {
+            display: flex;
+            overflow-x: auto;
+            padding: 15px 10px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .section-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--dark);
+            margin: 0 15px;
+            min-width: 60px;
+            transition: all 0.3s;
+        }
+        
+        .section-link i {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+        
+        .section-link img {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+            margin-bottom: 5px;
+        }
+        
+        .section-link span {
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        
+        .section-link:hover, .section-link.active {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .menu-container {
+            flex: 1;
+            padding: 20px;
+        }
+        
+        .menu-section {
+            margin-bottom: 40px;
+            scroll-margin-top: 120px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        .section-header i {
+            font-size: 1.8rem;
+            margin-right: 15px;
+            color: var(--primary);
+        }
+        
+        .section-header img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            margin-right: 15px;
+        }
+        
+        .section-title {
+            color: var(--primary);
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .menu-item {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .item-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .item-details {
+            padding: 15px;
+        }
+        
+        .item-name {
+            font-size: 1.1rem;
+            margin: 0 0 5px 0;
+            color: var(--primary);
+        }
+        
+        .item-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin: 0 0 10px 0;
+            min-height: 40px;
+        }
+        
+        .item-price {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.2rem;
+            text-align: right;
+            letter-spacing: 0.5px;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-link {
+                margin: 0 10px;
+                min-width: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6zS-gzg9pBnP2_eqF3V0KQVGYsgjZeNJRoT5XqhwWvA&s" alt="MyM Broaster Logo" class="logo" id="restaurant-logo">
+            <h1>M&M Broaster</h1>
+            <p class="subtitle">Especialistas en pollo broaster</p>
+        </header>
+
+        <nav class="sections-nav" id="sections-nav">
+        </nav>
+        
+        <main class="menu-container" id="menu-container">
+        </main>
+        
+        <footer>
+            <p>M&M Broaster - Horario: Lunes a Domingo 11:00 AM - 9:00 PM</p>
+            <p>Teléfono: 3153153132 | Dirección: Av. 17, #5A - 05 | Barrio: Siglo XXI</p>
+        </footer>
+    </div>
+
+    <script>
+        async function loadData() {
+  try {
+    // Cargar secciones y productos desde tu proxy en Glitch
+    const [sectionsRes, productsRes] = await Promise.all([
+      fetch('https://repeated-expensive-weaver.glitch.me/api/sections'),
+      fetch('https://repeated-expensive-weaver.glitch.me/api/menu')
+    ]);
+
+    if (!sectionsRes.ok || !productsRes.ok) {
+      throw new Error('Error al cargar datos');
+    }
+
+    const sectionsData = await sectionsRes.json();
+    const productsData = await productsRes.json();
+
+    // Procesar datos como antes
+    const sections = processSheetData(sectionsData.values);
+    const products = processSheetData(productsData.values);
+
+    displaySections(sections);
+    displayMenu(sections, products);
+
+  } catch (error) {
+    console.error('Error:', error);
+    document.getElementById('menu-container').innerHTML = `
+      <div style="text-align: center; padding: 50px; color: red;">
+        <h3>Error al cargar el menú</h3>
+        <p>Por favor recarga la página</p>
+      </div>
+    `;
+  }
+}
+
+        function processSheetData(data) {
+            if (!data || data.length < 2) return [];
+            
+            const headers = data[0];
+            const rows = data.slice(1);
+            
+            return rows.map(row => {
+                const obj = {};
+                headers.forEach((header, index) => {
+                    obj[header] = row[index] || '';
+                });
+                return obj;
+            });
+        }
+        
+        function displaySections(sections) {
+            const nav = document.getElementById('sections-nav');
+            
+            sections.sort((a, b) => a.Orden - b.Orden).forEach(section => {
+                const sectionLink = document.createElement('a');
+                sectionLink.href = `#${section.Nombre.replace(/\s+/g, '-').toLowerCase()}`;
+                sectionLink.className = 'section-link';
+                sectionLink.id = `nav-${section.ID}`;
+                
+                if (section.Icono && section.Icono.startsWith('http')) {
+                    sectionLink.innerHTML = `
+                        <img src="${section.Icono}" alt="${section.Nombre}">
+                        <span>${section.Nombre}</span>
+                    `;
+                } else {
+                    sectionLink.innerHTML = `
+                        <i class="fas fa-utensils"></i>
+                        <span>${section.Nombre}</span>
+                    `;
+                }
+                
+                nav.appendChild(sectionLink);
+            });
+        }
+        
+        function displayMenu(sections, products) {
+    const menuContainer = document.getElementById('menu-container');
+    
+    menuContainer.innerHTML = '';
+    
+    sections.sort((a, b) => a.Orden - b.Orden).forEach(section => {
+        const sectionProducts = products.filter(p => p.Sección.toString() === section.ID.toString());
+        
+        if (sectionProducts.length === 0) return;
+        
+        const sectionElement = document.createElement('section');
+        sectionElement.className = 'menu-section';
+        sectionElement.id = section.Nombre.replace(/\s+/g, '-').toLowerCase();
+        
+        const sectionHeader = document.createElement('div');
+        sectionHeader.className = 'section-header';
+        
+        if (section.Icono && section.Icono.startsWith('http')) {
+            const iconImg = document.createElement('img');
+            iconImg.src = section.Icono;
+            iconImg.alt = section.Nombre;
+            sectionHeader.appendChild(iconImg);
+        } else {
+            const defaultIcon = document.createElement('i');
+            defaultIcon.className = 'fas fa-utensils';
+            sectionHeader.appendChild(defaultIcon);
+        }
+        
+        const title = document.createElement('h2');
+        title.className = 'section-title';
+        title.textContent = section.Nombre;
+        sectionHeader.appendChild(title);
+        
+        const itemsGrid = document.createElement('div');
+        itemsGrid.className = 'menu-items';
+        
+        sectionProducts.forEach(product => {
+            const item = document.createElement('div');
+            item.className = 'menu-item';
+
+            console.log('ImagenURL:', product.ImagenURL);
+            
+            if (product.ImagenURL && product.ImagenURL.startsWith('http')) {
+                const img = document.createElement('img');
+                img.src = product.ImagenURL;
+                img.alt = product.Nombre;
+                img.className = 'item-image';
+                item.appendChild(img);
+            } else {
+                const placeholder = document.createElement('div');
+                placeholder.style.cssText = 'height: 180px; background: #eee; display: flex; align-items: center; justify-content: center;';
+                const icon = document.createElement('i');
+                icon.className = 'fas fa-camera';
+                icon.style.cssText = 'font-size: 2rem; color: #ccc;';
+                placeholder.appendChild(icon);
+                item.appendChild(placeholder);
+            }
+            
+            const details = document.createElement('div');
+            details.className = 'item-details';
+            
+            const name = document.createElement('h3');
+            name.className = 'item-name';
+            name.textContent = product.Nombre;
+            details.appendChild(name);
+            
+            const desc = document.createElement('p');
+            desc.className = 'item-description';
+            desc.textContent = product.Descripción || ''; 
+            details.appendChild(desc);
+            
+            const price = document.createElement('p');
+            price.className = 'item-price';
+            price.textContent = formatCurrency(product.Precio);
+            details.appendChild(price);
+            
+            item.appendChild(details);
+            itemsGrid.appendChild(item);
+        });
+        
+        sectionElement.appendChild(sectionHeader);
+        sectionElement.appendChild(itemsGrid);
+        menuContainer.appendChild(sectionElement);
+    });
+    
+    if (menuContainer.innerHTML === '') {
+        menuContainer.innerHTML = `
+            <div style="text-align: center; padding: 50px;">
+                <h3>No se encontraron productos</h3>
+                <p>Por favor verifica la estructura de los datos</p>
+            </div>
+        `;
+    }
+}
+function formatCurrency(amount) {
+    const value = parseFloat(amount) || 0;
+    return new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: 'COP',
+        minimumFractionDigits: 0
+    }).format(value).replace('COP', '$');
+}
+
+        function setupIntersectionObserver(sections) {
+            const options = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.5
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const navLink = document.getElementById(`nav-${sections.find(s => s.Nombre.replace(/\s+/g, '-').toLowerCase() === entry.target.id).ID}`);
+                    if (entry.isIntersecting) {
+                        navLink.classList.add('active');
+                    } else {
+                        navLink.classList.remove('active');
+                    }
+                });
+            }, options);
+            
+            sections.forEach(section => {
+                const sectionElement = document.getElementById(section.Nombre.replace(/\s+/g, '-').toLowerCase());
+                if (sectionElement) {
+                    observer.observe(sectionElement);
+                }
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>
+
